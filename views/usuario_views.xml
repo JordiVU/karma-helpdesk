@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- acción -->
+    <record model="ir.actions.act_window" id="action_usuario">
+        <field name="name">Usuarios</field>
+        <field name="res_model">helpdesk.usuario</field>
+        <field name="view_mode">list,form,kanban</field>
+    </record>
+
+    <!-- entrada de menú -->
+    <menuitem
+        name="Usuarios"
+        id="menu_usuarios"
+        parent="menu_helpdesk_root"
+        action="action_usuario"
+        sequence="10"/>
+
+    <!-- ============================================================ -->
+    <!-- Vista lista                                                   -->
+    <!-- ============================================================ -->
+    <record model="ir.ui.view" id="lista_usuario_view">
+        <field name="name">helpdesk.usuario.list</field>
+        <field name="model">helpdesk.usuario</field>
+        <field name="arch" type="xml">
+            <list decoration-danger="nivel_karma == 'penalizado'"
+                  decoration-success="nivel_karma == 'premium'">
+                <field name="nombre"/>
+                <field name="email"/>
+                <field name="karma"/>
+                <field name="nivel_karma" widget="badge"/>
+                <field name="puede_crear_incidencias" widget="boolean"/>
+                <field name="total_incidencias"/>
+                <field name="incidencias_resueltas"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- Vista formulario                                             -->
+    <!-- ============================================================ -->
+    <record model="ir.ui.view" id="form_usuario_view">
+        <field name="name">helpdesk.usuario.form</field>
+        <field name="model">helpdesk.usuario</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group string="Datos personales">
+                            <field name="nombre"/>
+                            <field name="email"/>
+                            <field name="telefono"/>
+                            <field name="activo"/>
+                        </group>
+                        <group string="Karma">
+                            <field name="karma"/>
+                            <field name="nivel_karma" widget="badge"/>
+                            <field name="puede_crear_incidencias" widget="boolean"/>
+                        </group>
+                    </group>
+                    <group string="Estadísticas">
+                        <field name="total_incidencias"/>
+                        <field name="incidencias_resueltas"/>
+                    </group>
+                    <notebook>
+                        <page string="Incidencias">
+                            <field name="incidencias_ids" readonly="1">
+                                <list>
+                                    <field name="titulo"/>
+                                    <field name="estado" widget="badge"/>
+                                    <field name="gravedad" widget="badge"/>
+                                    <field name="prioridad"/>
+                                    <field name="fecha_creacion"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- Vista kanban                                                  -->
+    <!-- ============================================================ -->
+    <record model="ir.ui.view" id="kanban_usuario_view">
+        <field name="name">helpdesk.usuario.kanban</field>
+        <field name="model">helpdesk.usuario</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="nivel_karma">
+                <field name="nombre"/>
+                <field name="karma"/>
+                <field name="nivel_karma"/>
+                <field name="total_incidencias"/>
+                <field name="puede_crear_incidencias"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <strong><field name="nombre"/></strong>
+                            <div>Karma: <field name="karma"/></div>
+                            <div>Nivel: <field name="nivel_karma"/></div>
+                            <div>Incidencias: <field name="total_incidencias"/></div>
+                            <div>Puede crear:
+                                <field name="puede_crear_incidencias" widget="boolean"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- Vista búsqueda                                               -->
+    <!-- ============================================================ -->
+    <record model="ir.ui.view" id="search_usuario_view">
+        <field name="name">helpdesk.usuario.search</field>
+        <field name="model">helpdesk.usuario</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="nombre"/>
+                <field name="email"/>
+                <filter name="penalizados" string="Penalizados"
+                        domain="[('nivel_karma', '=', 'penalizado')]"/>
+                <filter name="premium" string="Premium"
+                        domain="[('nivel_karma', '=', 'premium')]"/>
+                <filter name="bloqueados" string="Bloqueados (no pueden crear)"
+                        domain="[('puede_crear_incidencias', '=', False)]"/>
+                <separator/>
+                <filter name="group_nivel" string="Por nivel karma"
+                        context="{'group_by': 'nivel_karma'}"/>
+            </search>
+        </field>
+    </record>
+
+</odoo>

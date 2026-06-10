@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- acción -->
+    <record model="ir.actions.act_window" id="action_incidencia">
+        <field name="name">Incidencias</field>
+        <field name="res_model">helpdesk.incidencia</field>
+        <field name="view_mode">list,form,kanban,graph</field>
+    </record>
+
+    <!-- entrada de menú -->
+    <menuitem
+        name="Incidencias"
+        id="menu_incidencias"
+        parent="menu_helpdesk_root"
+        action="action_incidencia"
+        sequence="5"/>
+
+    <!-- ============================================================ -->
+    <!-- Vista lista                                                   -->
+    <!-- ============================================================ -->
+    <record model="ir.ui.view" id="lista_incidencia_view">
+        <field name="name">helpdesk.incidencia.list</field>
+        <field name="model">helpdesk.incidencia</field>
+        <field name="arch" type="xml">
+            <list decoration-danger="gravedad == 'critica'"
+                  decoration-warning="gravedad == 'alta'"
+                  decoration-success="estado == 'cerrado'">
+                <field name="titulo"/>
+                <field name="usuario_id"/>
+                <field name="tecnico_id"/>
+                <field name="estado" widget="badge"/>
+                <field name="gravedad" widget="badge"/>
+                <field name="categoria" widget="badge"/>
+                <field name="prioridad"/>
+                <field name="veces_reabierta"/>
+                <field name="fecha_creacion"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- Vista formulario con flujo de estados                        -->
+    <!-- ============================================================ -->
+    <record model="ir.ui.view" id="form_incidencia_view">
+        <field name="name">helpdesk.incidencia.form</field>
+        <field name="model">helpdesk.incidencia</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_asignar" string="Asignar"
+                            type="object" class="btn-primary"
+                            invisible="estado not in ['nuevo', 'reabierto']"/>
+                    <button name="action_iniciar" string="Iniciar"
+                            type="object" class="btn-primary"
+                            invisible="estado != 'asignado'"/>
+                    <button name="action_resolver" string="Resolver"
+                            type="object" class="btn-success"
+                            invisible="estado != 'en_proceso'"/>
+                    <button name="action_cerrar" string="Cerrar"
+                            type="object" class="btn-secondary"
+                            invisible="estado != 'resuelto'"/>
+                    <button name="action_reabrir" string="Reabrir"
+                            type="object" class="btn-warning"
+                            invisible="estado not in ['resuelto', 'cerrado']"/>
+                    <field name="estado" widget="statusbar"
+                           statusbar_visible="nuevo,asignado,en_proceso,resuelto,cerrado"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group string="Incidencia">
+                            <field name="titulo"/>
+                            <field name="categoria"/>
+                            <field name="gravedad"/>
+                            <field name="prioridad" readonly="1"/>
+                        </group>
+                        <group string="Asignación">
+                            <field name="usuario_id"/>
+                            <field name="tecnico_id"/>
+                            <field name="veces_reabierta" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Descripción">
+                        <field name="descripcion" nolabel="1"/>
+                    </group>
+                    <group string="Tiempos">
+                        <field name="fecha_creacion" readonly="1"/>
+                        <field name="fecha_resolucion" readonly="1"/>
+                        <field name="tiempo_resolucion" readonly="1" digits="[6,2]"/>
+                    </group>
+                    <notebook>
+                        <page string="Historial de acciones">
+                            <field name="historial_ids" readonly="1">
+                                <list>
+                                    <field name="fecha"/>
+                                    <field name="accion"/>
+                                    <field name="descripcion"/>
+                                    <field name="usuario_sistema_id"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- Vista kanban agrupada por estado                             -->
+    <!-- ============================================================ -->
+    <record model="ir.ui.view" id="kanban_incidencia_view">
+        <field name="name">helpdesk.incidencia.kanban</field>
+        <field name="model">helpdesk.incidencia</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="estado">
+                <field name="titulo"/>
+                <field name="estado"/>
+                <field name="gravedad"/>
+                <field name="prioridad"/>
+                <field name="usuario_id"/>
+                <field name="tecnico_id"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <strong><field name="titulo"/></strong>
+                            <div>Gravedad: <field name="gravedad"/></div>
+                            <div>Prioridad: <field name="prioridad"/></div>
+                            <div>Usuario: <field name="usuario_id"/></div>
+                            <div>Técnico: <field name="tecnico_id"/></div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- Vista gráfico: incidencias por gravedad                      -->
+    <!-- ============================================================ -->
+    <record model="ir.ui.view" id="graph_incidencia_view">
+        <field name="name">helpdesk.incidencia.graph</field>
+        <field name="model">helpdesk.incidencia</field>
+        <field name="arch" type="xml">
+            <graph string="Incidencias por gravedad y estado" type="bar">
+                <field name="gravedad" type="row"/>
+                <field name="prioridad" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- Vista búsqueda                                               -->
+    <!-- ============================================================ -->
+    <record model="ir.ui.view" id="search_incidencia_view">
+        <field name="name">helpdesk.incidencia.search</field>
+        <field name="model">helpdesk.incidencia</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="titulo"/>
+                <field name="usuario_id"/>
+                <field name="tecnico_id"/>
+                <filter name="abiertas" string="Abiertas"
+                        domain="[('estado', 'not in', ['resuelto', 'cerrado'])]"/>
+                <filter name="criticas" string="Críticas"
+                        domain="[('gravedad', '=', 'critica')]"/>
+                <filter name="sin_tecnico" string="Sin asignar"
+                        domain="[('tecnico_id', '=', False)]"/>
+                <filter name="reabiertas" string="Reabiertas"
+                        domain="[('veces_reabierta', '>', 0)]"/>
+                <separator/>
+                <filter name="group_estado" string="Por estado"
+                        context="{'group_by': 'estado'}"/>
+                <filter name="group_gravedad" string="Por gravedad"
+                        context="{'group_by': 'gravedad'}"/>
+                <filter name="group_tecnico" string="Por técnico"
+                        context="{'group_by': 'tecnico_id'}"/>
+            </search>
+        </field>
+    </record>
+
+</odoo>

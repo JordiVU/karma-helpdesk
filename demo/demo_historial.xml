@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hist_1" model="helpdesk.historial">
+        <field name="incidencia_id" ref="inc_1"/>
+        <field name="accion">Creación</field>
+        <field name="descripcion">Incidencia creada. Gravedad: critica. Prioridad calculada: 70.</field>
+        <field name="fecha">2026-05-20 08:00:00</field>
+    </record>
+
+    <record id="hist_2" model="helpdesk.historial">
+        <field name="incidencia_id" ref="inc_1"/>
+        <field name="accion">Asignación</field>
+        <field name="descripcion">Técnico asignado: Jordi Mas</field>
+        <field name="fecha">2026-05-20 08:05:00</field>
+    </record>
+
+    <record id="hist_3" model="helpdesk.historial">
+        <field name="incidencia_id" ref="inc_1"/>
+        <field name="accion">Inicio</field>
+        <field name="descripcion">El técnico ha comenzado a trabajar en la incidencia.</field>
+        <field name="fecha">2026-05-20 08:15:00</field>
+    </record>
+
+    <record id="hist_4" model="helpdesk.historial">
+        <field name="incidencia_id" ref="inc_3"/>
+        <field name="accion">Creación</field>
+        <field name="descripcion">Incidencia creada. Gravedad: baja. Prioridad calculada: 0.</field>
+        <field name="fecha">2026-05-15 10:00:00</field>
+    </record>
+
+    <record id="hist_5" model="helpdesk.historial">
+        <field name="incidencia_id" ref="inc_3"/>
+        <field name="accion">Resolución</field>
+        <field name="descripcion">Incidencia resuelta. Tiempo: 1.0h. Bonus karma técnico: 10.</field>
+        <field name="fecha">2026-05-15 11:00:00</field>
+    </record>
+
+    <record id="hist_6" model="helpdesk.historial">
+        <field name="incidencia_id" ref="inc_3"/>
+        <field name="accion">Cierre</field>
+        <field name="descripcion">Incidencia cerrada por el usuario.</field>
+        <field name="fecha">2026-05-15 12:00:00</field>
+    </record>
+
+    <record id="hist_7" model="helpdesk.historial">
+        <field name="incidencia_id" ref="inc_6"/>
+        <field name="accion">Creación</field>
+        <field name="descripcion">Incidencia creada. Gravedad: alta. Prioridad calculada: 40.</field>
+        <field name="fecha">2026-05-19 08:30:00</field>
+    </record>
+
+    <record id="hist_8" model="helpdesk.historial">
+        <field name="incidencia_id" ref="inc_6"/>
+        <field name="accion">Resolución</field>
+        <field name="descripcion">Incidencia resuelta por Sara Vila.</field>
+        <field name="fecha">2026-05-19 16:00:00</field>
+    </record>
+
+    <record id="hist_9" model="helpdesk.historial">
+        <field name="incidencia_id" ref="inc_6"/>
+        <field name="accion">Reapertura</field>
+        <field name="descripcion">Incidencia reabierta (vez nº 1). El problema persiste.</field>
+        <field name="fecha">2026-05-20 09:00:00</field>
+    </record>
+
+</odoo>

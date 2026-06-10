@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- técnicos con distintos niveles de karma para demostración -->
+
+    <!-- experto: karma >= 200 → bonus resolución 35 -->
+    <record id="tecnico_1" model="helpdesk.tecnico">
+        <field name="nombre">Jordi Mas</field>
+        <field name="email">jordi.mas@demo.com</field>
+        <field name="especialidad">software</field>
+        <field name="karma">210</field>
+        <field name="activo">True</field>
+    </record>
+
+    <!-- senior: karma 80–199 → bonus resolución 20 -->
+    <record id="tecnico_2" model="helpdesk.tecnico">
+        <field name="nombre">Sara Vila</field>
+        <field name="email">sara.vila@demo.com</field>
+        <field name="especialidad">hardware</field>
+        <field name="karma">150</field>
+        <field name="activo">True</field>
+    </record>
+
+    <!-- senior -->
+    <record id="tecnico_3" model="helpdesk.tecnico">
+        <field name="nombre">Pau Gómez</field>
+        <field name="email">pau.gomez@demo.com</field>
+        <field name="especialidad">red</field>
+        <field name="karma">85</field>
+        <field name="activo">True</field>
+    </record>
+
+    <!-- junior: karma < 80 → bonus resolución 10 -->
+    <record id="tecnico_4" model="helpdesk.tecnico">
+        <field name="nombre">Marta Blanco</field>
+        <field name="email">marta.blanco@demo.com</field>
+        <field name="especialidad">acceso</field>
+        <field name="karma">55</field>
+        <field name="activo">True</field>
+    </record>
+</odoo>

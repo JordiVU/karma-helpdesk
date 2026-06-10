@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+acl_helpdesk_usuario,helpdesk.usuario all,model_helpdesk_usuario,,1,1,1,1
+acl_helpdesk_tecnico,helpdesk.tecnico all,model_helpdesk_tecnico,,1,1,1,1
+acl_helpdesk_incidencia,helpdesk.incidencia all,model_helpdesk_incidencia,,1,1,1,1
+acl_helpdesk_historial,helpdesk.historial all,model_helpdesk_historial,,1,1,1,1

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="inc_1" model="helpdesk.incidencia">
+        <field name="titulo">El servidor web no responde</field>
+        <field name="descripcion">El servidor principal lleva caído 2 horas. Afecta a todos los usuarios.</field>
+        <field name="gravedad">critica</field>
+        <field name="categoria">software</field>
+        <field name="estado">en_proceso</field>
+        <field name="usuario_id" ref="usuario_1"/>
+        <field name="tecnico_id" ref="tecnico_1"/>
+        <field name="fecha_creacion">2026-05-20 08:00:00</field>
+    </record>
+
+    <record id="inc_2" model="helpdesk.incidencia">
+        <field name="titulo">No puedo acceder a la VPN</field>
+        <field name="descripcion">Desde ayer no puedo conectarme a la VPN corporativa.</field>
+        <field name="gravedad">alta</field>
+        <field name="categoria">acceso</field>
+        <field name="estado">asignado</field>
+        <field name="usuario_id" ref="usuario_2"/>
+        <field name="tecnico_id" ref="tecnico_3"/>
+        <field name="fecha_creacion">2026-05-21 09:30:00</field>
+    </record>
+
+    <record id="inc_3" model="helpdesk.incidencia">
+        <field name="titulo">Impresora de planta 3 sin papel</field>
+        <field name="descripcion">La impresora HP del tercer piso no imprime. Parece que no tiene papel.</field>
+        <field name="gravedad">baja</field>
+        <field name="categoria">hardware</field>
+        <field name="estado">cerrado</field>
+        <field name="usuario_id" ref="usuario_3"/>
+        <field name="tecnico_id" ref="tecnico_4"/>
+        <field name="fecha_creacion">2026-05-15 10:00:00</field>
+        <field name="fecha_resolucion">2026-05-15 11:00:00</field>
+    </record>
+
+    <record id="inc_4" model="helpdesk.incidencia">
+        <field name="titulo">Red muy lenta en sala de reuniones</field>
+        <field name="descripcion">La conexión wifi en la sala de reuniones va muy lenta. Reuniones afectadas.</field>
+        <field name="gravedad">media</field>
+        <field name="categoria">red</field>
+        <field name="estado">nuevo</field>
+        <field name="usuario_id" ref="usuario_5"/>
+        <field name="fecha_creacion">2026-05-22 14:00:00</field>
+    </record>
+
+    <record id="inc_5" model="helpdesk.incidencia">
+        <field name="titulo">Fallo en backup nocturno</field>
+        <field name="descripcion">El sistema de backup ha fallado tres noches seguidas. Riesgo de pérdida de datos.</field>
+        <field name="gravedad">critica</field>
+        <field name="categoria">software</field>
+        <field name="estado">resuelto</field>
+        <field name="usuario_id" ref="usuario_1"/>
+        <field name="tecnico_id" ref="tecnico_1"/>
+        <field name="fecha_creacion">2026-05-18 07:00:00</field>
+        <field name="fecha_resolucion">2026-05-18 19:00:00</field>
+    </record>
+
+    <record id="inc_6" model="helpdesk.incidencia">
+        <field name="titulo">PC no enciende en recepción</field>
+        <field name="descripcion">El ordenador de recepción no arranca desde esta mañana.</field>
+        <field name="gravedad">alta</field>
+        <field name="categoria">hardware</field>
+        <field name="estado">reabierto</field>
+        <field name="usuario_id" ref="usuario_2"/>
+        <field name="tecnico_id" ref="tecnico_2"/>
+        <field name="veces_reabierta">1</field>
+        <field name="fecha_creacion">2026-05-19 08:30:00</field>
+    </record>
+
+</odoo>

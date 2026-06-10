@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- usuarios con distintos niveles de karma para demostración -->
+
+    <record id="usuario_1" model="helpdesk.usuario">
+        <field name="nombre">Anna Puig</field>
+        <field name="email">anna.puig@demo.com</field>
+        <field name="telefono">600111222</field>
+        <field name="karma">165</field>
+    </record>
+
+    <record id="usuario_2" model="helpdesk.usuario">
+        <field name="nombre">Marc Soler</field>
+        <field name="email">marc.soler@demo.com</field>
+        <field name="telefono">600333444</field>
+        <field name="karma">95</field>
+    </record>
+
+    <record id="usuario_3" model="helpdesk.usuario">
+        <field name="nombre">Laia Ferrer</field>
+        <field name="email">laia.ferrer@demo.com</field>
+        <field name="telefono">600555666</field>
+        <field name="karma">45</field>
+    </record>
+
+    <!-- usuario penalizado: karma < 20, no puede crear incidencias -->
+    <record id="usuario_4" model="helpdesk.usuario">
+        <field name="nombre">Pere Roca</field>
+        <field name="email">pere.roca@demo.com</field>
+        <field name="telefono">600777888</field>
+        <field name="karma">10</field>
+    </record>
+
+    <record id="usuario_5" model="helpdesk.usuario">
+        <field name="nombre">Núria Costa</field>
+        <field name="email">nuria.costa@demo.com</field>
+        <field name="telefono">600999000</field>
+        <field name="karma">130</field>
+    </record>
+</odoo>

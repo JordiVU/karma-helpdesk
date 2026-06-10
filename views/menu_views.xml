@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- menú raíz de la aplicación -->
+    <menuitem
+        name="Karma HelpDesk"
+        id="menu_helpdesk_root"
+        sequence="10"/>
+</odoo>
